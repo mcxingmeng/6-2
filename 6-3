@@ -1,0 +1,63 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace shoping
+{
+    class Program
+    {
+        public class Goods
+        {
+            public string GoodsName;
+            public double Price;
+            public Goods(string goodsname,double price)
+            {
+                this.GoodsName = goodsname;
+                this.Price = price;
+            }
+        }
+        
+        public class ShopingCart
+        {
+            public double SumPrice;
+            public List<Goods> MyGood = new List<Goods>();
+            public void Setdata(params Goods [] goods)
+            {
+                for (int i=0;i<goods.Length;i++)
+                    MyGood.Add(goods[i]);
+            }
+            public void Palydata()
+            {
+                Console.WriteLine("购买的物品有：");
+                foreach (Goods goods in MyGood)
+                {
+                    Console.WriteLine($"商品：{goods.GoodsName}");
+                    Console.WriteLine($"商品价格：{goods.Price}");
+                }
+            }
+            public void CalTotal()
+            {
+                SumPrice = 0;
+                foreach (Goods goods in MyGood)
+                {
+                    SumPrice = goods.Price + SumPrice;
+                }
+                Console.WriteLine($"总金额为：{SumPrice}");
+            }
+        }
+        static void Main(string[] args)
+        {
+            Goods a = new Goods("好太太洗衣液",19.98);
+            Goods b = new Goods("舒服佳肥皂",5.00);
+            Goods c = new Goods("樱桃",38.76);
+            Goods d = new Goods("西瓜",27.20);
+            ShopingCart cart = new ShopingCart();
+            cart.Setdata(a, b, c, d);
+            cart.Palydata();
+            cart.CalTotal();
+            Console.ReadKey();
+        }
+    }
+}
